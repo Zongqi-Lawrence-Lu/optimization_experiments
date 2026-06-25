@@ -1,0 +1,94 @@
+# Mode (c): Non-convex — RoBERTa fine-tuning on GLUE, distributed (federated).
+# Change glue_task to run a different GLUE task.
+# num_nodes and local_steps are left configurable; defaults are 5 nodes / 10 local steps.
+# Inner: AdamW with gradient clipping.  Outer: Adam on pseudo-gradients.
+
+run_name: roberta_sst2_distributed
+seed: 42
+total_outer_steps: 1000
+eval_every: 50
+log_gradients_every: 50
+checkpoint_every: 200
+checkpoint_interval_minutes: 10.0
+resume: false
+output_dir: outputs
+results_dir: results
+plots_dir: plots
+deterministic: false
+device: cuda    # requires A40 or similar
+
+distributed:
+  mode: distributed
+  num_nodes: 5
+  local_steps: 10
+  data_distribution: iid
+  participation_rate: 1.0
+  partition_file: null
+
+data:
+  dataset_name: glue
+  glue_task: sst2        # cola | sst2 | mrpc | qqp | stsb | mnli | qnli | rte | wnli
+  task_type: classification
+  tokenizer_name: roberta-base
+  max_seq_len: 128
+  batch_size: 16          # smaller per-node batch in federated setting
+  num_workers: 2
+  split_train: train
+  split_val: validation
+  split_test: test
+
+model:
+  kind: hf_seq_cls
+  pretrained_name: roberta-base
+  num_classes: 2          # adjust per task (stsb → 1, mnli → 3, others → 2)
+  in_features: 0
+  arch_name: ''
+  pretrained: true
+  custom_factory: null
+
+inner_optimizer:
+  name: adamw
+  lr: 2.0e-05
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.01
+  custom_factory: null
+  warmup_steps: 100
+  warmup_max_lr: 2.0e-05
+  warmup_schedule: linear
+  clipping:
+    clip_type: upper
+    clip_scope: global
+    upper: 1.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+outer_optimizer:
+  name: adam              # server-side Adam (FedAdam / SlowMo style)
+  lr: 0.01
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-03            # larger eps stabilises outer Adam with noisy pseudo-grads
+  weight_decay: 0.0
+  custom_factory: null
+  warmup_steps: 0
+  warmup_max_lr: null
+  warmup_schedule: linear
+  clipping:
+    clip_type: upper
+    clip_scope: global
+    upper: 10.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+metrics:
+  - loss
+  - accuracy
+  - f1_binary

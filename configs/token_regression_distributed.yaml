@@ -1,0 +1,93 @@
+# Mode (b): Convex linear regression — token frequency features, distributed.
+# Same data as token_regression_centralized.yaml but split across N nodes with
+# non-IID Dirichlet partitioning.  Inner optimizer: Adagrad (coordinate-wise).
+# Outer optimizer: SGD with global upper-clipping on pseudo-gradients.
+
+run_name: token_regression_distributed
+seed: 42
+total_outer_steps: 300
+eval_every: 30
+log_gradients_every: 30
+checkpoint_every: 100
+checkpoint_interval_minutes: 10.0
+resume: false
+output_dir: outputs
+results_dir: results
+plots_dir: plots
+deterministic: false
+device: cpu
+
+distributed:
+  mode: distributed
+  num_nodes: 10
+  local_steps: 5
+  data_distribution: noniid
+  participation_rate: 0.5
+  partition_file: null
+
+data:
+  task: regression
+  num_samples: 5000
+  num_features: 100
+  noise_distribution: student_t
+  noise_scale: 0.5
+  noise_df: 3.0
+  feature_distribution: bernoulli_mixed
+  common_feature_fraction: 0.1
+  common_prob: 0.9
+  rare_prob: 0.01
+  random_seed: 42
+  batch_size: 32
+  dirichlet_alpha: 0.3    # more heterogeneous partition
+
+model:
+  kind: linear
+  in_features: 100
+  pretrained_name: ''
+  arch_name: ''
+  pretrained: false
+  num_classes: 1
+  custom_factory: null
+
+inner_optimizer:
+  name: adagrad
+  lr: 0.1
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.0
+  custom_factory: null
+  warmup_steps: 0
+  warmup_max_lr: null
+  warmup_schedule: linear
+  clipping:
+    clip_type: upper
+    clip_scope: coordinate
+    upper: 1.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+outer_optimizer:
+  name: sgd                # FedAvg-style outer update with optional clipping
+  lr: 1.0
+  beta1: 0.0               # no momentum
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.0
+  custom_factory: null
+  clipping:
+    clip_type: upper
+    clip_scope: global
+    upper: 5.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+metrics:
+  - loss
+  - param_distance

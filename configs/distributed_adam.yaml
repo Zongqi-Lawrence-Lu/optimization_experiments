@@ -1,0 +1,85 @@
+run_name: distributed_adam_biclip
+seed: 42
+total_outer_steps: 100
+eval_every: 10
+log_gradients_every: 10
+checkpoint_every: 50
+checkpoint_interval_minutes: 10.0
+resume: false
+output_dir: outputs
+results_dir: results
+plots_dir: plots
+deterministic: false
+device: cpu
+
+distributed:
+  mode: distributed
+  num_nodes: 10
+  local_steps: 5
+  data_distribution: noniid
+  participation_rate: 0.5   # 50% node participation per round
+  partition_file: null
+
+data:
+  task: regression
+  num_samples: 5000
+  num_features: 20
+  noise_distribution: student_t
+  noise_scale: 1.0
+  noise_df: 2.0             # heavy-tailed noise
+  feature_distribution: bernoulli_mixed
+  common_feature_fraction: 0.3
+  common_prob: 0.8
+  rare_prob: 0.05
+  random_seed: 42
+  batch_size: 32
+  dirichlet_alpha: 0.5
+
+model:
+  kind: linear
+  in_features: 20
+  pretrained_name: ''
+  arch_name: ''
+  pretrained: false
+  num_classes: 10
+  custom_factory: null
+
+inner_optimizer:
+  name: adam
+  lr: 0.001
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.0
+  custom_factory: null
+  clipping:
+    clip_type: biclip
+    clip_scope: coordinate
+    upper: 1.0
+    lower: 0.0001
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+outer_optimizer:
+  name: adam
+  lr: 0.1
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.0
+  custom_factory: null
+  clipping:
+    clip_type: upper
+    clip_scope: global
+    upper: 5.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+metrics:
+  - loss
+  - param_distance

@@ -1,0 +1,32 @@
+# Two-stage hyperparameter sweep — Mode (a): linear regression (use with either
+# centralized_sgd.yaml or linear_regression_heavy_tail_centralized.yaml as base_config).
+#
+# Usage:
+#   python -m framework.sweep.two_stage \
+#       configs/sweep_linear_regression.yaml \
+#       outputs/sweeps/linreg_sweep
+
+base_config: configs/linear_regression_heavy_tail_centralized.yaml
+parallel_jobs: 4
+primary_metric: best_val_loss
+lower_is_better: true
+
+stage1:
+  search: grid
+  axes:
+    - field: inner_optimizer.lr
+      values: [0.001, 0.01, 0.05, 0.1]
+      log_scale: true
+    - field: inner_optimizer.clipping.upper
+      values: [0.1, 0.5, 1.0, 5.0, 10.0]
+    - field: inner_optimizer.eps
+      values: [1.0e-08, 1.0e-06, 1.0e-04]
+
+stage2:
+  search: grid
+  n_values: 5
+  zoom_factor: 0.4
+  axes:
+    - field: inner_optimizer.lr
+      log_scale: true
+    - field: inner_optimizer.clipping.upper

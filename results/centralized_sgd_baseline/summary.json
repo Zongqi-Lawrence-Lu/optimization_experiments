@@ -1,0 +1,12 @@
+{
+  "val_loss_best": 6.672392572675433,
+  "val_loss_best_step": 5,
+  "val_loss_final": 6.672392572675433,
+  "val_loss_final_step": 5,
+  "param_distance_best": 2.571277141571045,
+  "param_distance_best_step": 5,
+  "param_distance_final": 2.571277141571045,
+  "param_distance_final_step": 5,
+  "best_val_loss": 6.672392572675433,
+  "best_step": 5
+}

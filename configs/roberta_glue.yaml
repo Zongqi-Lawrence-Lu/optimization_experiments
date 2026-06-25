@@ -1,0 +1,90 @@
+# RoBERTa fine-tuning on a single GLUE task (e.g. SST-2).
+# Change glue_task to run a different GLUE task.
+# Adjust num_nodes / mode for distributed fine-tuning.
+
+run_name: roberta_sst2_centralized
+seed: 42
+total_outer_steps: 3000
+eval_every: 100
+log_gradients_every: 100
+checkpoint_every: 500
+checkpoint_interval_minutes: 10.0
+resume: false
+output_dir: outputs
+results_dir: results
+plots_dir: plots
+deterministic: false
+device: cuda   # requires A40 or similar
+
+distributed:
+  mode: centralized
+  num_nodes: 1
+  local_steps: 1
+  data_distribution: iid
+  participation_rate: 1.0
+  partition_file: null
+
+data:
+  dataset_name: glue
+  glue_task: sst2      # cola | sst2 | mrpc | qqp | stsb | mnli | qnli | rte | wnli
+  task_type: classification
+  tokenizer_name: roberta-base
+  max_seq_len: 128
+  batch_size: 32
+  num_workers: 4
+  split_train: train
+  split_val: validation
+  split_test: test
+
+model:
+  kind: hf_seq_cls
+  pretrained_name: roberta-base
+  num_classes: 2        # adjust per GLUE task (stsb → 1, mnli → 3, others → 2)
+  in_features: 0
+  arch_name: ''
+  pretrained: true
+  custom_factory: null
+
+inner_optimizer:
+  name: adamw
+  lr: 2.0e-05
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.01
+  custom_factory: null
+  warmup_steps: 500        # ~10% of 3000 steps for LM fine-tuning warmup
+  warmup_max_lr: 2.0e-05  # same as lr (ramp up to this)
+  warmup_schedule: linear
+  clipping:
+    clip_type: upper
+    clip_scope: global
+    upper: 1.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+outer_optimizer:
+  name: average
+  lr: 1.0
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.0
+  custom_factory: null
+  clipping:
+    clip_type: none
+    clip_scope: global
+    upper: 1.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+metrics:
+  - loss
+  - accuracy
+  - f1_binary

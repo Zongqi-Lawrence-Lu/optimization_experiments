@@ -1,0 +1,15 @@
+torch>=2.0
+numpy
+pyyaml
+scipy
+scikit-learn
+pandas
+matplotlib
+pytest
+# Optional NLP dependencies
+# transformers
+# datasets
+# sacrebleu
+# nltk
+# Optional vision dependency
+# torchvision

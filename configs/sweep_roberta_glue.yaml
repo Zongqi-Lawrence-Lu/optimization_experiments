@@ -1,0 +1,35 @@
+# Two-stage hyperparameter sweep — Mode (c): RoBERTa GLUE fine-tuning (centralized).
+# Run the coarse sweep first; the fine sweep zooms in around the best LR and clip.
+#
+# Usage:
+#   python -m framework.sweep.two_stage \
+#       configs/sweep_roberta_glue.yaml \
+#       outputs/sweeps/roberta_glue_sweep
+
+base_config: configs/roberta_glue.yaml
+parallel_jobs: 2           # NLP runs are GPU-heavy; limit parallelism
+primary_metric: best_val_loss
+lower_is_better: true
+
+stage1:
+  search: grid
+  axes:
+    - field: inner_optimizer.lr
+      values: [5.0e-06, 1.0e-05, 2.0e-05, 5.0e-05]
+      log_scale: true
+    - field: inner_optimizer.clipping.upper
+      values: [0.5, 1.0, 5.0]
+    - field: inner_optimizer.eps
+      values: [1.0e-08, 1.0e-06]
+    - field: inner_optimizer.weight_decay
+      values: [0.0, 0.01, 0.1]
+
+stage2:
+  search: grid
+  n_values: 3
+  zoom_factor: 0.5
+  axes:
+    - field: inner_optimizer.lr
+      log_scale: true
+    - field: inner_optimizer.clipping.upper
+    - field: inner_optimizer.weight_decay

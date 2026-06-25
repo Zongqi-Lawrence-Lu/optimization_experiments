@@ -1,0 +1,93 @@
+# T5-small fine-tuning on OPUS-100 En→De (small & auto-downloadable, ~1M pairs).
+# Switch dataset_name to "wmt14" / "wmt16" for larger WMT corpora.
+# Switch tgt_lang to "fr" for English→French.
+
+run_name: t5_opus100_en_de_centralized
+seed: 42
+total_outer_steps: 5000
+eval_every: 200
+log_gradients_every: 200
+checkpoint_every: 500
+checkpoint_interval_minutes: 10.0
+resume: false
+output_dir: outputs
+results_dir: results
+plots_dir: plots
+deterministic: false
+device: cuda   # requires A40 or similar
+
+distributed:
+  mode: centralized
+  num_nodes: 1
+  local_steps: 1
+  data_distribution: iid
+  participation_rate: 1.0
+  partition_file: null
+
+data:
+  # "opus100"  — Helsinki-NLP/opus-100, ~1M pairs (readily downloadable, recommended)
+  # "wmt14"    — wmt/wmt14, ~4.5M pairs En-De (large, cached after first download)
+  # "wmt16"    — wmt/wmt16
+  dataset_name: opus100
+  src_lang: en
+  tgt_lang: de
+  task_type: seq2seq
+  tokenizer_name: t5-small
+  max_seq_len: 128
+  batch_size: 16
+  num_workers: 4
+  split_train: train
+  split_val: validation
+  split_test: test
+
+model:
+  kind: hf_seq2seq
+  pretrained_name: t5-small
+  num_classes: 1   # unused for seq2seq
+  in_features: 0
+  arch_name: ''
+  pretrained: true
+  custom_factory: null
+
+inner_optimizer:
+  name: adamw
+  lr: 5.0e-04
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.01
+  custom_factory: null
+  warmup_steps: 500        # linear warmup over first 500 steps
+  warmup_max_lr: 5.0e-04
+  warmup_schedule: linear
+  clipping:
+    clip_type: upper
+    clip_scope: global
+    upper: 1.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+outer_optimizer:
+  name: average
+  lr: 1.0
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.0
+  custom_factory: null
+  clipping:
+    clip_type: none
+    clip_scope: global
+    upper: 1.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+metrics:
+  - loss
+  - bleu

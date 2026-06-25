@@ -1,0 +1,8 @@
+.DS_Store
+.Claude
+__pycache__/
+*.pyc
+*.out
+*.sbatch
+*.pt
+*.log
