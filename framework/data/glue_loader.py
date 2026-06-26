@@ -105,7 +105,7 @@ def build_glue_dataloaders(
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
 
     # Load dataset; GLUE is under "glue" namespace
-    ds = load_dataset("glue", task)
+    ds = load_dataset("nyu-mll/glue", task)
     val_split_name = _GLUE_VALIDATION_SPLIT.get(task, "validation")
 
     train_hf = ds["train"]

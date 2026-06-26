@@ -63,7 +63,7 @@ def run(config: TrainingConfig) -> Dict[str, Any]:
     if isinstance(config.data, SyntheticDataConfig):
         from framework.data.synthetic import build_synthetic_dataloaders
 
-        train_loaders, val_loader, dataset = build_synthetic_dataloaders(
+        train_loaders, val_loader, test_loader, dataset = build_synthetic_dataloaders(
             config.data,
             num_nodes=config.distributed.num_nodes,
             data_distribution=config.distributed.data_distribution,
