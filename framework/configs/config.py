@@ -202,8 +202,9 @@ class RealDataConfig:
 
 @dataclass
 class ModelConfig:
-    kind: str = "linear"           # "linear" | "hf_seq_cls" | "hf_seq2seq" | "torchvision" | "custom"
-    in_features: int = 10          # for "linear"
+    kind: str = "linear"           # "linear" | "two_layer_mlp" | "hf_seq_cls" | "hf_seq2seq" | "torchvision" | "custom"
+    in_features: int = 10          # for "linear" and "two_layer_mlp"
+    hidden_size: int = 64          # for "two_layer_mlp"
     pretrained_name: str = ""      # for HuggingFace models
     arch_name: str = ""            # for "torchvision"
     pretrained: bool = False

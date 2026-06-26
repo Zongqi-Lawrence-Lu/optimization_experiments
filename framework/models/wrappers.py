@@ -86,6 +86,10 @@ def build_model(config: ModelConfig, true_weights=None) -> nn.Module:
         from framework.models.convex import LinearRegressionModel
         return LinearRegressionModel(config.in_features, true_weights=true_weights)
 
+    elif config.kind == "two_layer_mlp":
+        from framework.models.mlp import TwoLayerMLP
+        return TwoLayerMLP(config.in_features, config.hidden_size)
+
     elif config.kind in ("hf_seq_cls", "hf_pretrained"):
         try:
             from transformers import AutoModelForSequenceClassification

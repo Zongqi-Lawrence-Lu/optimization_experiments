@@ -101,6 +101,11 @@ def _build_fine_axes(
                 spacing = abs(best_val) * 0.5 or 1.0
             half = zoom_factor * spacing
             fine_values = [best_val + half * (i - (n_values - 1) / 2) for i in range(n_values)]
+            # Clamp to positive when all coarse values are positive (e.g. clipping thresholds).
+            # Linear zoom around a small best value can otherwise produce negatives.
+            if all(v > 0 for v in sorted_vals):
+                eps = min(sorted_vals) * 0.1
+                fine_values = [max(v, eps) for v in fine_values]
 
         # Remove duplicates and preserve order
         seen = set()
