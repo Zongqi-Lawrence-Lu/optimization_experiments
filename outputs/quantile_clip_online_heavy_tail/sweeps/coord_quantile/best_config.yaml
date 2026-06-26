@@ -1,0 +1,89 @@
+run_name: trial_0014
+seed: 42
+total_outer_steps: 500
+eval_every: 25
+log_gradients_every: 25
+checkpoint_every: 250
+checkpoint_interval_minutes: 10.0
+resume: false
+output_dir: outputs/quantile_clip_online_heavy_tail/sweeps/coord_quantile/stage2
+results_dir: results/quantile_clip_online_heavy_tail
+plots_dir: plots/quantile_clip_online_heavy_tail
+deterministic: false
+distributed:
+  mode: centralized
+  num_nodes: 1
+  local_steps: 1
+  data_distribution: iid
+  participation_rate: 1.0
+  partition_file: null
+data:
+  task: regression
+  num_samples: 2000
+  num_features: 20
+  noise_distribution: student_t
+  noise_scale: 1.0
+  noise_df: 2.0
+  feature_distribution: gaussian
+  common_feature_fraction: 0.5
+  common_prob: 0.9
+  rare_prob: 0.1
+  random_seed: 42
+  batch_size: 32
+  dirichlet_alpha: 0.5
+model:
+  kind: two_layer_mlp
+  in_features: 20
+  hidden_size: 32
+  pretrained_name: ''
+  arch_name: ''
+  pretrained: false
+  num_classes: 1
+  custom_factory: null
+inner_optimizer:
+  name: sgd
+  lr: 0.1
+  clipping:
+    clip_type: quantile
+    clip_scope: coordinate
+    upper: 1.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+    quantile_level: 0.8
+    quantile_lr: 0.0251188643
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.0
+  custom_factory: null
+  warmup_steps: 0
+  warmup_max_lr: null
+  warmup_schedule: linear
+outer_optimizer:
+  name: average
+  lr: 1.0
+  clipping:
+    clip_type: none
+    clip_scope: global
+    upper: 1.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+    quantile_level: 0.9
+    quantile_lr: 0.01
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.0
+  custom_factory: null
+  warmup_steps: 0
+  warmup_max_lr: null
+  warmup_schedule: linear
+metrics:
+- loss
+device: cpu

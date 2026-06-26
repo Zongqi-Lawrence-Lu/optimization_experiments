@@ -1,0 +1,12 @@
+{
+  "Global quantile (online)": {
+    "best_val_loss": 5.729769332068307,
+    "final_val_loss": 6.301915066582816,
+    "log_dir": "outputs/quantile_clip_online_heavy_tail/final/quantile_global_quantile_final"
+  },
+  "Coordinate quantile (online)": {
+    "best_val_loss": 5.544029951095581,
+    "final_val_loss": 6.323323045458112,
+    "log_dir": "outputs/quantile_clip_online_heavy_tail/final/quantile_coord_quantile_final"
+  }
+}

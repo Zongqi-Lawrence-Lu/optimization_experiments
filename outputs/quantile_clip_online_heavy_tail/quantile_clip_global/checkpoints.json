@@ -1,0 +1,5 @@
+{
+  "0": "outputs/quantile_clip_online_heavy_tail/quantile_clip_global/checkpoints/step_0.pt",
+  "250": "outputs/quantile_clip_online_heavy_tail/quantile_clip_global/checkpoints/step_250.pt",
+  "499": "outputs/quantile_clip_online_heavy_tail/quantile_clip_global/checkpoints/step_499.pt"
+}

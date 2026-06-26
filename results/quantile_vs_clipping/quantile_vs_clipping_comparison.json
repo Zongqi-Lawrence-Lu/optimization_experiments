@@ -1,0 +1,27 @@
+{
+  "Fixed global L2": {
+    "best_val_loss": 5.795450176511492,
+    "final_val_loss": 6.0030297211238315,
+    "log_dir": "outputs/quantile_vs_clipping/final/cmp_global_upper"
+  },
+  "Fixed coordinate": {
+    "best_val_loss": 5.906845995358059,
+    "final_val_loss": 5.966577785355704,
+    "log_dir": "outputs/quantile_vs_clipping/final/cmp_coord_upper"
+  },
+  "Fixed layer-wise": {
+    "best_val_loss": 5.565349442618234,
+    "final_val_loss": 6.254014389855521,
+    "log_dir": "outputs/quantile_vs_clipping/final/cmp_layerwise_upper"
+  },
+  "Online quantile global": {
+    "best_val_loss": 5.985481057848249,
+    "final_val_loss": 6.365833009992327,
+    "log_dir": "outputs/quantile_vs_clipping/final/cmp_global_quantile"
+  },
+  "Online quantile coord": {
+    "best_val_loss": 5.544029951095581,
+    "final_val_loss": 6.323323045458112,
+    "log_dir": "outputs/quantile_vs_clipping/final/cmp_coord_quantile"
+  }
+}
