@@ -16,38 +16,48 @@ import yaml
 
 @dataclass
 class ClippingConfig:
-    # Operation type: "none" | "upper" | "biclip"
+    # Operation type: "none" | "upper" | "biclip" | "quantile"
     clip_type: str = "none"
     # Scope: "global" | "layerwise" | "coordinate"
     clip_scope: str = "global"
-    upper: float = 1.0           # upper clipping threshold
+    upper: float = 1.0           # upper clipping threshold (also init value for quantile estimator)
     lower: float = 0.0           # lower threshold (biclip modes only)
     layer_overrides: Dict[str, Dict[str, float]] = field(default_factory=dict)
     # Dynamic threshold: derive upper (and lower) from gradient statistics each step
     dynamic: bool = False
     dynamic_percentile: float = 0.9   # for coordinate scope: percentile of |g| used as upper
     dynamic_ema_decay: float = 0.99   # for global/layerwise scope: EMA decay for norm history
+    # Online quantile estimation (clip_type="quantile")
+    quantile_level: float = 0.9       # target quantile τ ∈ (0, 1)
+    quantile_lr: float = 0.01         # Robbins-Monro step size for quantile estimator
 
     def __post_init__(self):
-        valid_types = {"none", "upper", "biclip"}
+        valid_types = {"none", "upper", "biclip", "quantile"}
         valid_scopes = {"global", "layerwise", "coordinate"}
         if self.clip_type not in valid_types:
             raise ValueError(f"ClippingConfig.clip_type must be one of {valid_types}, got '{self.clip_type}'")
         if self.clip_scope not in valid_scopes:
             raise ValueError(f"ClippingConfig.clip_scope must be one of {valid_scopes}, got '{self.clip_scope}'")
-        if self.clip_type != "none":
+        if self.clip_type not in {"none", "quantile"}:
             if self.upper <= 0:
                 raise ValueError(f"ClippingConfig.upper must be positive, got {self.upper}")
             if self.lower < 0:
                 raise ValueError(f"ClippingConfig.lower must be non-negative, got {self.lower}")
             if self.lower > self.upper:
                 raise ValueError(f"ClippingConfig.lower ({self.lower}) must be <= upper ({self.upper})")
+        if self.clip_type == "quantile":
+            if not (0.0 < self.quantile_level < 1.0):
+                raise ValueError(f"ClippingConfig.quantile_level must be in (0, 1), got {self.quantile_level}")
+            if self.quantile_lr <= 0:
+                raise ValueError(f"ClippingConfig.quantile_lr must be positive, got {self.quantile_lr}")
 
     # Legacy convenience: synthesise a mode string for old code paths
     @property
     def mode(self) -> str:
         if self.clip_type == "none":
             return "none"
+        if self.clip_type == "quantile":
+            return f"quantile_{self.clip_scope}"
         if self.clip_type == "upper":
             if self.clip_scope == "global":
                 return "l2"

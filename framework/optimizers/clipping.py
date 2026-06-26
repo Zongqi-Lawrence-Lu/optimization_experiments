@@ -289,6 +289,76 @@ class DynamicLayerwiseUpperClipping(ClippingOperator):
 
 
 # ---------------------------------------------------------------------------
+# Online quantile clipping — Robbins-Monro stochastic approximation
+#
+# The τ-quantile estimate q is updated each step as:
+#   q ← q + η_q * (τ − 1(x ≤ q))
+# At equilibrium, E[1(x ≤ q)] = τ, so q converges to the τ-quantile of x.
+# ---------------------------------------------------------------------------
+
+class OnlineQuantileGlobalClipping(ClippingOperator):
+    """Global L2 clipping with threshold = online estimate of τ-quantile of gradient norms.
+
+    Each step: q ← q + η_q * (τ − 1(‖g‖₂ ≤ q)), then clip ‖g‖₂ to q.
+    """
+
+    def __init__(self, config: ClippingConfig):
+        super().__init__(config)
+        self._q: float = config.upper  # initialise from upper; adapts online
+
+    def _update(self, norm: float) -> float:
+        tau = self.config.quantile_level
+        eta = self.config.quantile_lr
+        indicator = 1.0 if norm <= self._q else 0.0
+        self._q = max(self._q + eta * (tau - indicator), 1e-8)
+        return self._q
+
+    def __call__(self, tensor: Tensor) -> Tensor:
+        norm = tensor.norm(2).item()
+        threshold = self._update(norm)
+        if norm > threshold:
+            return tensor * (threshold / norm)
+        return tensor
+
+    def clip_grad_list(self, grads: List[Tuple[str, Tensor]]) -> List[Tuple[str, Tensor]]:
+        flat = torch.cat([g.flatten() for _, g in grads])
+        norm = flat.norm(2).item()
+        threshold = self._update(norm)
+        if norm > threshold:
+            scale = threshold / norm
+            return [(name, g * scale) for name, g in grads]
+        return grads
+
+
+class OnlineQuantileCoordClipping(ClippingOperator):
+    """Coordinate-wise clipping with threshold = online estimate of τ-quantile of |g_i|.
+
+    Uses the batch-mean indicator to update the shared scalar estimate:
+      q ← q + η_q * (τ − mean_i 1(|g_i| ≤ q)), then clip each |g_i| to q.
+    """
+
+    def __init__(self, config: ClippingConfig):
+        super().__init__(config)
+        self._q: float = config.upper
+
+    def _update(self, abs_flat: Tensor) -> float:
+        tau = self.config.quantile_level
+        eta = self.config.quantile_lr
+        frac_below = (abs_flat <= self._q).float().mean().item()
+        self._q = max(self._q + eta * (tau - frac_below), 1e-8)
+        return self._q
+
+    def __call__(self, tensor: Tensor) -> Tensor:
+        threshold = self._update(tensor.abs().flatten())
+        return tensor.clamp(-threshold, threshold)
+
+    def clip_grad_list(self, grads: List[Tuple[str, Tensor]]) -> List[Tuple[str, Tensor]]:
+        flat = torch.cat([g.abs().flatten() for _, g in grads])
+        threshold = self._update(flat)
+        return [(name, g.clamp(-threshold, threshold)) for name, g in grads]
+
+
+# ---------------------------------------------------------------------------
 # Factory
 # ---------------------------------------------------------------------------
 
@@ -296,6 +366,12 @@ def build_clipping_operator(config: ClippingConfig) -> ClippingOperator:
     """Construct the appropriate ClippingOperator from a config."""
     if config.clip_type == "none":
         return NoClipping(config)
+
+    if config.clip_type == "quantile":
+        if config.clip_scope == "coordinate":
+            return OnlineQuantileCoordClipping(config)
+        else:  # global (layerwise falls back to global for simplicity)
+            return OnlineQuantileGlobalClipping(config)
 
     if config.dynamic:
         # Dynamic thresholds
