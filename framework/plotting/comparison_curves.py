@@ -29,6 +29,9 @@ PANEL_LABELS = {
     "train_loss": "Train Loss",
     "learning_rate": "Learning Rate",
     "val_loss": "Val Loss",
+    "test_loss": "Test Loss",
+    "val_accuracy": "Val Accuracy",
+    "test_accuracy": "Test Accuracy",
     "grad_norm_raw": "Grad Norm (raw)",
     "grad_norm_clipped": "Grad Norm (clipped)",
     "clipped_fraction": "Clipped Fraction",
@@ -169,15 +172,21 @@ def save_comparison_summary(
     runs: List[Tuple[str, str]],
     output_path: str,
 ) -> None:
-    """Write a JSON file with best/final val_loss per run."""
+    """Write a JSON file with best/final val_loss and test_loss per run.
+
+    Val loss is tracked throughout training (used for HP selection).
+    Test loss is logged once at the end of the final run.
+    """
     summary = {}
     for label, log_dir in runs:
         data = _load_run(log_dir)
         eval_records = data["eval"]
-        val_losses = [r["val_loss"] for r in eval_records if "val_loss" in r]
+        val_losses  = [r["val_loss"]  for r in eval_records if "val_loss"  in r]
+        test_losses = [r["test_loss"] for r in eval_records if "test_loss" in r]
         summary[label] = {
-            "best_val_loss": float(min(val_losses)) if val_losses else None,
-            "final_val_loss": float(val_losses[-1]) if val_losses else None,
+            "best_val_loss":  float(min(val_losses))   if val_losses  else None,
+            "final_val_loss": float(val_losses[-1])    if val_losses  else None,
+            "test_loss":      float(test_losses[-1])   if test_losses else None,
             "log_dir": str(log_dir),
         }
     os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)

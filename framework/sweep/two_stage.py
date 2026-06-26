@@ -222,7 +222,9 @@ def run_two_stage_sweep(sweep_config_path: str, sweep_dir: str) -> None:
     # Extract the hp values for the best trial
     best_hp = {k: v for k, v in best_s1.items()
                 if k not in {"trial_id"} and not any(m in k for m in ["loss", "step", "best", "final"])}
-    print(f"Stage 1 best: {best_hp}  →  {primary_metric}={best_s1.get(primary_metric):.4f}")
+    best_metric_val = best_s1.get(primary_metric)
+    metric_str = f"{best_metric_val:.4f}" if best_metric_val is not None else "N/A"
+    print(f"Stage 1 best: {best_hp}  →  {primary_metric}={metric_str}")
 
     # ---- Stage 2 ----
     stage2_dir = os.path.join(sweep_dir, "stage2")
@@ -254,7 +256,8 @@ def run_two_stage_sweep(sweep_config_path: str, sweep_dir: str) -> None:
         best_s2_dst = os.path.join(stage2_dir, "best_config.yaml")
         if os.path.exists(best_s2_src):
             shutil.copy(best_s2_src, best_s2_dst)
-        print(f"Stage 2 best: {primary_metric}={best_s2.get(primary_metric):.4f}")
+        best_s2_val = best_s2.get(primary_metric)
+        print(f"Stage 2 best: {primary_metric}={best_s2_val:.4f if best_s2_val is not None else 'N/A'}")
         print(f"Best config written to {best_s2_dst}")
 
         # Write an overall best to sweep_dir root

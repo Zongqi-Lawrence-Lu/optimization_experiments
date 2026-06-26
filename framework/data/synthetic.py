@@ -172,13 +172,18 @@ def build_synthetic_dataloaders(
     batch_size: Optional[int],
     seed: int,
     val_fraction: float = 0.1,
+    test_fraction: float = 0.1,
     partition_file: Optional[str] = None,
-) -> Tuple[List[DataLoader], DataLoader, "SyntheticRegressionDataset"]:
-    """Build per-node training loaders and a shared validation loader.
+) -> Tuple[List[DataLoader], DataLoader, DataLoader, "SyntheticRegressionDataset"]:
+    """Build per-node training loaders plus shared validation and test loaders.
+
+    The split is: train = 1 - val_fraction - test_fraction, val = val_fraction,
+    test = test_fraction.  Val is used for hyperparameter selection; test is
+    held out entirely and used only for final evaluation.
 
     Returns
     -------
-    (train_loaders, val_loader, dataset)
+    (train_loaders, val_loader, test_loader, dataset)
     """
     dataset = SyntheticRegressionDataset(config)
     bs = batch_size if batch_size is not None else config.batch_size
@@ -186,20 +191,19 @@ def build_synthetic_dataloaders(
     n = len(dataset.X)
     rng = np.random.RandomState(seed)
     all_idx = rng.permutation(n)
-    val_size = max(1, int(n * val_fraction))
-    val_idx = all_idx[:val_size].tolist()
-    train_idx = all_idx[val_size:].tolist()
+    val_size  = max(1, int(n * val_fraction))
+    test_size = max(1, int(n * test_fraction))
+    val_idx   = all_idx[:val_size].tolist()
+    test_idx  = all_idx[val_size:val_size + test_size].tolist()
+    train_idx = all_idx[val_size + test_size:].tolist()
 
-    # Build a train-only sub-dataset for partitioning
     full_ds = dataset.as_torch_dataset()
-    val_subset = Subset(full_ds, val_idx)
-    val_loader = DataLoader(val_subset, batch_size=bs, shuffle=False)
+    val_loader  = DataLoader(Subset(full_ds, val_idx),  batch_size=bs, shuffle=False)
+    test_loader = DataLoader(Subset(full_ds, test_idx), batch_size=bs, shuffle=False)
 
-    # Temporary dataset restricted to train indices for partitioning
     train_X = dataset.X[train_idx]
     train_y = dataset.y[train_idx]
 
-    # Re-build a SyntheticRegressionDataset shell pointing to train data only
     train_shell = copy.copy(dataset)
     train_shell.X = train_X
     train_shell.y = train_y
@@ -215,4 +219,4 @@ def build_synthetic_dataloaders(
     else:
         raise ValueError(f"Unknown data_distribution: '{data_distribution}'")
 
-    return train_loaders, val_loader, dataset
+    return train_loaders, val_loader, test_loader, dataset
