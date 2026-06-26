@@ -1,8 +1,18 @@
 .DS_Store
 .Claude
 __pycache__/
+checkpoint/
 *.pyc
 *.out
 *.sbatch
 *.pt
 *.log
+
+# Per-trial sweep outputs (heavy logs; best_config.yaml + results_summary.csv are kept)
+outputs/**/trial_*/
+
+# Per-trial result summaries (sweep noise; the final comparison JSON is the artifact)
+results/**/trial_*/
+
+# Per-trial training-curve plots (only final comparison plots belong in git)
+plots/**/trial_*

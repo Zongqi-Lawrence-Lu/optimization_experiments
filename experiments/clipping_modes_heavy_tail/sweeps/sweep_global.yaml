@@ -1,0 +1,24 @@
+# Two-stage sweep for global L2 upper clipping.
+# Sweeps lr and the single global clip threshold.
+base_config: experiments/clipping_modes_heavy_tail/configs/global_upper.yaml
+parallel_jobs: 4
+primary_metric: best_val_loss
+lower_is_better: true
+
+stage1:
+  search: grid
+  axes:
+    - field: inner_optimizer.lr
+      values: [0.001, 0.005, 0.01, 0.05, 0.1]
+      log_scale: true
+    - field: inner_optimizer.clipping.upper
+      values: [0.1, 0.5, 1.0, 5.0, 10.0]
+
+stage2:
+  search: grid
+  n_values: 5
+  zoom_factor: 0.4
+  axes:
+    - field: inner_optimizer.lr
+      log_scale: true
+    - field: inner_optimizer.clipping.upper
