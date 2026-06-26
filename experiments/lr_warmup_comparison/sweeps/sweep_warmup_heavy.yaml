@@ -1,0 +1,29 @@
+# Sweep for warmup condition, heavy-tail noise.
+# Independently finds the best lr, clipping threshold, AND warmup duration.
+# warmup_max_lr is null in the base config, so peak LR = lr (swept).
+# After warmup, LR remains constant at lr.
+base_config: experiments/lr_warmup_comparison/configs/warmup_heavy_tail.yaml
+parallel_jobs: 4
+primary_metric: best_val_loss
+lower_is_better: true
+
+stage1:
+  search: grid
+  axes:
+    - field: inner_optimizer.lr
+      values: [0.005, 0.01, 0.05, 0.1, 0.5]
+      log_scale: true
+    - field: inner_optimizer.clipping.upper
+      values: [0.5, 1.0, 5.0, 10.0]
+    - field: inner_optimizer.warmup_steps
+      values: [20, 50, 100, 200, 500]
+
+stage2:
+  search: grid
+  n_values: 4
+  zoom_factor: 0.4
+  axes:
+    - field: inner_optimizer.lr
+      log_scale: true
+    - field: inner_optimizer.clipping.upper
+    - field: inner_optimizer.warmup_steps
