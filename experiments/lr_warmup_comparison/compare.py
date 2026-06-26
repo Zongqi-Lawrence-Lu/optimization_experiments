@@ -117,10 +117,10 @@ def main() -> None:
     plot_comparison(
         runs=heavy_runs,
         output_path=f"{plots_dir}/heavy_tail_warmup_vs_no_warmup.png",
-        metrics=["val_loss"],
+        metrics=["test_loss"],
         smoothing=0.3,
         title="LR Warmup vs. No Warmup — Heavy-tail Student-t(df=2) Noise\n"
-              "(each condition uses independently tuned best LR)",
+              "(each condition uses independently tuned best LR; val used for HP selection only)",
     )
     plot_comparison(
         runs=heavy_runs,
@@ -139,10 +139,10 @@ def main() -> None:
     plot_comparison(
         runs=gaussian_runs,
         output_path=f"{plots_dir}/gaussian_warmup_vs_no_warmup.png",
-        metrics=["val_loss"],
+        metrics=["test_loss"],
         smoothing=0.3,
         title="LR Warmup vs. No Warmup — Gaussian (light-tail) Noise\n"
-              "(each condition uses independently tuned best LR)",
+              "(each condition uses independently tuned best LR; val used for HP selection only)",
     )
 
     # All four on one plot for cross-noise comparison
@@ -151,8 +151,8 @@ def main() -> None:
     ]
     plot_comparison(
         runs=all_runs,
-        output_path=f"{plots_dir}/all_conditions_val_loss.png",
-        metrics=["val_loss"],
+        output_path=f"{plots_dir}/all_conditions_test_loss.png",
+        metrics=["test_loss"],
         smoothing=0.3,
         title="All Conditions: Warmup × Noise Type",
     )

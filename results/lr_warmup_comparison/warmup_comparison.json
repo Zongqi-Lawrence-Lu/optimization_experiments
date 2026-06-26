@@ -1,0 +1,26 @@
+{
+  "No warmup (heavy-tail)": {
+    "best_val_loss": 5.800119229725429,
+    "final_val_loss": 6.057737657002041,
+    "test_loss": 7.353095122746059,
+    "log_dir": "outputs/lr_warmup_comparison/final/warmup_no_warmup_heavy_tail_final"
+  },
+  "Warmup (heavy-tail)": {
+    "best_val_loss": 5.595908335277012,
+    "final_val_loss": 5.832674213818142,
+    "test_loss": 8.256747245788574,
+    "log_dir": "outputs/lr_warmup_comparison/final/warmup_warmup_heavy_tail_final"
+  },
+  "No warmup (Gaussian)": {
+    "best_val_loss": 1.0619540980884008,
+    "final_val_loss": 1.3434443984712874,
+    "test_loss": 1.0768586652619498,
+    "log_dir": "outputs/lr_warmup_comparison/final/warmup_no_warmup_gaussian_final"
+  },
+  "Warmup (Gaussian)": {
+    "best_val_loss": 1.0608542476381575,
+    "final_val_loss": 1.9538469484874181,
+    "test_loss": 1.2011579445430212,
+    "log_dir": "outputs/lr_warmup_comparison/final/warmup_warmup_gaussian_final"
+  }
+}

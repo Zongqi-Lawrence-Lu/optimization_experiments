@@ -1,0 +1,7 @@
+{
+  "0": "outputs/lr_warmup_comparison/final/warmup_no_warmup_gaussian_final/checkpoints/step_0.pt",
+  "250": "outputs/lr_warmup_comparison/final/warmup_no_warmup_gaussian_final/checkpoints/step_250.pt",
+  "500": "outputs/lr_warmup_comparison/final/warmup_no_warmup_gaussian_final/checkpoints/step_500.pt",
+  "750": "outputs/lr_warmup_comparison/final/warmup_no_warmup_gaussian_final/checkpoints/step_750.pt",
+  "999": "outputs/lr_warmup_comparison/final/warmup_no_warmup_gaussian_final/checkpoints/step_999.pt"
+}
