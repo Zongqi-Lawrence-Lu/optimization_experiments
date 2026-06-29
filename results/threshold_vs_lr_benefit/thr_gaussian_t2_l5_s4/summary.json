@@ -1,0 +1,12 @@
+{
+  "val_loss_best": 1.3769558582987105,
+  "val_loss_best_step": 200,
+  "val_loss_final": 1.3935484204973494,
+  "val_loss_final_step": 450,
+  "test_loss_best": 1.633675456047058,
+  "test_loss_best_step": 499,
+  "test_loss_final": 1.633675456047058,
+  "test_loss_final_step": 499,
+  "best_val_loss": 1.3769558582987105,
+  "best_step": 200
+}

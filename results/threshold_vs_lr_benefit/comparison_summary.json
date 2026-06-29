@@ -1,0 +1,32 @@
+{
+  "gaussian": {
+    "setting": "gaussian",
+    "best_tau": 10.0,
+    "best_lr": 0.01,
+    "best_mean_val_loss": 1.1941412499972752,
+    "tau_axis_improvement": 8.251718969359283,
+    "lr_axis_improvement": 11.927895607023821,
+    "tau_benefit_ratio": 0.6918000660987937,
+    "interpretation": "lr axis gives MORE benefit"
+  },
+  "heavy_tail": {
+    "setting": "heavy_tail",
+    "best_tau": 0.1,
+    "best_lr": 0.5,
+    "best_mean_val_loss": 4.955548753057207,
+    "tau_axis_improvement": 8.268627964314959,
+    "lr_axis_improvement": 12.003693048564752,
+    "tau_benefit_ratio": 0.6888403369580436,
+    "interpretation": "lr axis gives MORE benefit"
+  },
+  "sst2": {
+    "setting": "sst2",
+    "best_tau": 5.0,
+    "best_lr": 0.01,
+    "best_mean_val_loss": 0.2406410144109811,
+    "tau_axis_improvement": 0.14530504109071835,
+    "lr_axis_improvement": 0.3310228429424265,
+    "tau_benefit_ratio": 0.4389577462349078,
+    "interpretation": "lr axis gives MORE benefit"
+  }
+}

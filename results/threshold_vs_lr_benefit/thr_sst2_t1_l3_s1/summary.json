@@ -1,0 +1,20 @@
+{
+  "val_loss_best": 0.6868772017104285,
+  "val_loss_best_step": 450,
+  "val_loss_final": 0.6868772017104285,
+  "val_loss_final_step": 450,
+  "val_accuracy_best": 0.5103211009174312,
+  "val_accuracy_best_step": 450,
+  "val_accuracy_final": 0.5103211009174312,
+  "val_accuracy_final_step": 450,
+  "test_loss_best": 0.6799189746379852,
+  "test_loss_best_step": 499,
+  "test_loss_final": 0.6799189746379852,
+  "test_loss_final_step": 499,
+  "test_accuracy_best": 0.6295871559633027,
+  "test_accuracy_best_step": 499,
+  "test_accuracy_final": 0.6295871559633027,
+  "test_accuracy_final_step": 499,
+  "best_val_loss": 0.6868772017104285,
+  "best_step": 450
+}
