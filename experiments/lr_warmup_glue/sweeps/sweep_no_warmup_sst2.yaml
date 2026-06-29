@@ -1,0 +1,25 @@
+# Sweep for no-warmup condition — RoBERTa-base on SST-2.
+# Independently finds the best lr and clipping threshold.
+# Stage1: 4×4 = 16 trials.
+base_config: experiments/lr_warmup_glue/configs/no_warmup_sst2.yaml
+parallel_jobs: 2
+primary_metric: best_val_loss
+lower_is_better: true
+
+stage1:
+  search: grid
+  axes:
+    - field: inner_optimizer.lr
+      values: [1.0e-04, 1.0e-03, 1.0e-02, 1.0e-01]
+      log_scale: true
+    - field: inner_optimizer.clipping.upper
+      values: [0.5, 1.0, 5.0, 10.0]
+
+stage2:
+  search: grid
+  n_values: 5
+  zoom_factor: 0.4
+  axes:
+    - field: inner_optimizer.lr
+      log_scale: true
+    - field: inner_optimizer.clipping.upper

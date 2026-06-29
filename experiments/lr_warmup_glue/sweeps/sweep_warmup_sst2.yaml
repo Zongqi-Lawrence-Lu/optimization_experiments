@@ -1,0 +1,29 @@
+# Sweep for warmup condition — RoBERTa-base on SST-2.
+# Independently finds the best lr, clipping threshold, and warmup duration.
+# Stage1: 4×4×4 = 64 trials covering the standard AdamW fine-tuning range.
+# Stage2: fine grid centred on stage-1 best.
+base_config: experiments/lr_warmup_glue/configs/warmup_sst2.yaml
+parallel_jobs: 2
+primary_metric: best_val_loss
+lower_is_better: true
+
+stage1:
+  search: grid
+  axes:
+    - field: inner_optimizer.lr
+      values: [1.0e-04, 1.0e-03, 1.0e-02, 1.0e-01]
+      log_scale: true
+    - field: inner_optimizer.clipping.upper
+      values: [0.5, 1.0, 5.0, 10.0]
+    - field: inner_optimizer.warmup_steps
+      values: [25, 50, 100, 200]
+
+stage2:
+  search: grid
+  n_values: 4
+  zoom_factor: 0.4
+  axes:
+    - field: inner_optimizer.lr
+      log_scale: true
+    - field: inner_optimizer.clipping.upper
+    - field: inner_optimizer.warmup_steps

@@ -1,0 +1,14 @@
+{
+  "No warmup": {
+    "best_val_loss": 0.19538651114063604,
+    "final_val_loss": 0.6968986860343388,
+    "test_loss": 0.6969001144170761,
+    "log_dir": "outputs/lr_warmup_glue/final/warmup_glue_no_warmup_sst2_final"
+  },
+  "Warmup (linear)": {
+    "best_val_loss": 0.20182733942887612,
+    "final_val_loss": 0.6970181443861553,
+    "test_loss": 0.6970234641007015,
+    "log_dir": "outputs/lr_warmup_glue/final/warmup_glue_warmup_sst2_final"
+  }
+}
