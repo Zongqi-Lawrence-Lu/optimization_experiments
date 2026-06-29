@@ -110,8 +110,8 @@ def build_glue_dataloaders(
 
     train_hf = ds["train"]
     val_hf = ds.get(val_split_name) or ds.get("validation")
-    # Use val as test proxy since test labels are unreleased
-    test_hf = ds.get("test")
+    # GLUE test labels are not public; use validation split as test proxy
+    test_hf = val_hf
 
     def _make_ds(hf_split):
         if hf_split is None:

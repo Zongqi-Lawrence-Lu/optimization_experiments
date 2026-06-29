@@ -36,6 +36,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+import multiprocessing
 import os
 import shutil
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -134,7 +135,9 @@ def _dispatch_trials(
     parallel_jobs: int,
 ) -> List[dict]:
     results = []
-    with ProcessPoolExecutor(max_workers=parallel_jobs) as executor:
+    # Use 'spawn' to give each trial a clean CUDA context (fork is unsafe with CUDA).
+    mp_ctx = multiprocessing.get_context("spawn")
+    with ProcessPoolExecutor(max_workers=parallel_jobs, mp_context=mp_ctx) as executor:
         future_map = {
             executor.submit(_run_trial, config_path): (trial_id, hp)
             for trial_id, config_path, hp in trial_records
@@ -202,15 +205,16 @@ def run_two_stage_sweep(sweep_config_path: str, sweep_dir: str) -> None:
     _write_csv(s1_results, s1_csv)
     print(f"Stage 1 complete. Results → {s1_csv}")
 
-    if not s1_results:
-        print("Stage 1 produced no results; aborting stage 2.")
+    s1_valid = [r for r in s1_results if r.get(primary_metric) is not None]
+    if not s1_valid:
+        print(f"Stage 1 produced no valid results for '{primary_metric}'; aborting stage 2.")
         return
 
     # Best stage-1 config
     if lower_is_better:
-        best_s1 = min(s1_results, key=lambda r: r.get(primary_metric, float("inf")))
+        best_s1 = min(s1_valid, key=lambda r: r[primary_metric])
     else:
-        best_s1 = max(s1_results, key=lambda r: r.get(primary_metric, float("-inf")))
+        best_s1 = max(s1_valid, key=lambda r: r[primary_metric])
 
     best_trial_id = best_s1["trial_id"]
     best_config_src = os.path.join(stage1_dir, best_trial_id, "config.yaml")
@@ -247,11 +251,12 @@ def run_two_stage_sweep(sweep_config_path: str, sweep_dir: str) -> None:
     _write_csv(s2_results, s2_csv)
     print(f"Stage 2 complete. Results → {s2_csv}")
 
-    if s2_results:
+    s2_valid = [r for r in s2_results if r.get(primary_metric) is not None]
+    if s2_valid:
         if lower_is_better:
-            best_s2 = min(s2_results, key=lambda r: r.get(primary_metric, float("inf")))
+            best_s2 = min(s2_valid, key=lambda r: r[primary_metric])
         else:
-            best_s2 = max(s2_results, key=lambda r: r.get(primary_metric, float("-inf")))
+            best_s2 = max(s2_valid, key=lambda r: r[primary_metric])
         best_s2_src = os.path.join(stage2_dir, best_s2["trial_id"], "config.yaml")
         best_s2_dst = os.path.join(stage2_dir, "best_config.yaml")
         if os.path.exists(best_s2_src):

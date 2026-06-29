@@ -118,7 +118,12 @@ def _evaluate(
 
             # Collect logits for metric computation (classification / regression)
             try:
-                out = model(batch) if isinstance(batch, dict) else model(batch[0])
+                if isinstance(batch, dict):
+                    # Strip labels to avoid HuggingFace's internal cross-entropy on -1 labels
+                    fwd_batch = {k: v for k, v in batch.items() if k != "labels"}
+                    out = model(fwd_batch)
+                else:
+                    out = model(batch[0])
                 if isinstance(out, tuple):
                     logits = out[1]   # (loss, logits)
                 else:
