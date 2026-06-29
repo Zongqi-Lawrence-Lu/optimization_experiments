@@ -1,0 +1,13 @@
+{"outer_step": 0, "val_loss": 0.692967604313578, "val_accuracy": 0.5252293577981652, "sharpness": 2.1855036417643228e-07}
+{"outer_step": 50, "val_loss": 0.6931960731744766, "val_accuracy": 0.5091743119266054, "sharpness": -7.947285970052083e-09}
+{"outer_step": 0, "val_loss": 0.692967604313578, "val_accuracy": 0.5252293577981652, "sharpness": 4.967053731282552e-09}
+{"outer_step": 50, "val_loss": 0.6931960816894259, "val_accuracy": 0.5091743119266054, "sharpness": 4.3710072835286457e-07}
+{"outer_step": 100, "val_loss": 0.695077793938773, "val_accuracy": 0.5091743119266054, "sharpness": -1.6887982686360678e-07}
+{"outer_step": 150, "val_loss": 0.6944752633571625, "val_accuracy": 0.5091743119266054, "sharpness": 2.980232238769531e-07}
+{"outer_step": 200, "val_loss": 0.6966498259987149, "val_accuracy": 0.5091743119266054, "sharpness": -6.387631098429362e-07}
+{"outer_step": 250, "val_loss": 0.6956164751734052, "val_accuracy": 0.5091743119266054, "sharpness": -2.473592758178711e-07}
+{"outer_step": 300, "val_loss": 0.6944898281778608, "val_accuracy": 0.5091743119266054, "sharpness": -1.7583370208740235e-07}
+{"outer_step": 350, "val_loss": 0.6986518970557621, "val_accuracy": 0.5091743119266054, "sharpness": -7.132689158121745e-07}
+{"outer_step": 400, "val_loss": 0.6961409470864705, "val_accuracy": 0.5091743119266054, "sharpness": 3.2782554626464844e-07}
+{"outer_step": 450, "val_loss": 0.6973171596016202, "val_accuracy": 0.5091743119266054, "sharpness": -1.2467304865519206e-06}
+{"outer_step": 499, "val_loss": 0.6971525124141148, "val_accuracy": 0.5091743119266054, "sharpness": 1.0053316752115886e-06}

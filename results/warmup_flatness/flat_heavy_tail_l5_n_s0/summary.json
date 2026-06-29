@@ -1,0 +1,12 @@
+{
+  "val_loss_best": 24.85896740640913,
+  "val_loss_best_step": 275,
+  "val_loss_final": 26.648624335016525,
+  "val_loss_final_step": 499,
+  "sharpness_best": -0.007958545287450155,
+  "sharpness_best_step": 150,
+  "sharpness_final": 0.0023831605911254885,
+  "sharpness_final_step": 499,
+  "best_val_loss": 24.85896740640913,
+  "best_step": 275
+}

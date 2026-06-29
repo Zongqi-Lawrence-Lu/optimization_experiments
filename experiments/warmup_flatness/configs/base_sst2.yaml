@@ -1,0 +1,80 @@
+# Base config for warmup_flatness — RoBERTa-base on SST-2.
+# run_and_measure.py overrides inner_optimizer.lr, inner_optimizer.warmup_steps, and seed.
+run_name: flat_sst2_base
+seed: 42
+total_outer_steps: 500
+eval_every: 50
+log_gradients_every: 50
+checkpoint_every: 9999
+checkpoint_interval_minutes: null
+resume: false
+output_dir: outputs/warmup_flatness/sst2
+results_dir: results/warmup_flatness
+plots_dir: plots/warmup_flatness
+deterministic: false
+device: cuda
+
+distributed:
+  mode: centralized
+  num_nodes: 1
+  local_steps: 1
+  data_distribution: iid
+  participation_rate: 1.0
+  partition_file: null
+
+data:
+  dataset_name: glue
+  task_type: classification
+  glue_task: sst2
+  tokenizer_name: roberta-base
+  max_seq_len: 128
+  batch_size: 32
+  num_workers: 0
+
+model:
+  kind: hf_seq_cls
+  pretrained_name: roberta-base
+  num_classes: 2
+
+inner_optimizer:
+  name: sgd
+  lr: 0.001             # overridden per run
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.0
+  custom_factory: null
+  warmup_steps: 0       # overridden per run
+  warmup_max_lr: null
+  warmup_schedule: linear
+  clipping:
+    clip_type: upper
+    clip_scope: global
+    upper: 1.0           # fixed tau for controlled comparison
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+outer_optimizer:
+  name: average
+  lr: 1.0
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-08
+  weight_decay: 0.0
+  custom_factory: null
+  clipping:
+    clip_type: none
+    clip_scope: global
+    upper: 1.0
+    lower: 0.0
+    layer_overrides: {}
+    dynamic: false
+    dynamic_percentile: 0.9
+    dynamic_ema_decay: 0.99
+
+metrics:
+  - loss
+  - accuracy

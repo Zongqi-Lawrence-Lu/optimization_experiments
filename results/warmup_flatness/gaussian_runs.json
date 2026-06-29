@@ -1,0 +1,602 @@
+[
+  {
+    "run_name": "flat_gaussian_l0_w_s2",
+    "setting": "gaussian",
+    "lr": 0.001,
+    "warmup": true,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 17.84830175127302,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l0_w_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l0_n_s1",
+    "setting": "gaussian",
+    "lr": 0.001,
+    "warmup": false,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 25.224732943943568,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l0_n_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l0_w_s0",
+    "setting": "gaussian",
+    "lr": 0.001,
+    "warmup": true,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 18.300212008612498,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l0_w_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l0_w_s1",
+    "setting": "gaussian",
+    "lr": 0.001,
+    "warmup": true,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 25.310797010149276,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l0_w_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l0_n_s3",
+    "setting": "gaussian",
+    "lr": 0.001,
+    "warmup": false,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 18.394875526428223,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l0_n_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l0_n_s2",
+    "setting": "gaussian",
+    "lr": 0.001,
+    "warmup": false,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 17.77845709664481,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l0_n_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l0_n_s4",
+    "setting": "gaussian",
+    "lr": 0.001,
+    "warmup": false,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 19.557132857186453,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l0_n_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l0_n_s0",
+    "setting": "gaussian",
+    "lr": 0.001,
+    "warmup": false,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 18.22554894856044,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l0_n_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l1_n_s0",
+    "setting": "gaussian",
+    "lr": 0.005,
+    "warmup": false,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 9.170944571495056,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l1_n_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l0_w_s4",
+    "setting": "gaussian",
+    "lr": 0.001,
+    "warmup": true,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 19.631411007472447,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l0_w_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l0_w_s3",
+    "setting": "gaussian",
+    "lr": 0.001,
+    "warmup": true,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 18.448407990591868,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l0_w_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l1_n_s1",
+    "setting": "gaussian",
+    "lr": 0.005,
+    "warmup": false,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 14.41172640664237,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l1_n_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l1_n_s4",
+    "setting": "gaussian",
+    "lr": 0.005,
+    "warmup": false,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 10.283929007393974,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l1_n_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l1_n_s2",
+    "setting": "gaussian",
+    "lr": 0.005,
+    "warmup": false,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 8.891545908791679,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l1_n_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l1_n_s3",
+    "setting": "gaussian",
+    "lr": 0.005,
+    "warmup": false,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 10.9060640335083,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l1_n_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l1_w_s0",
+    "setting": "gaussian",
+    "lr": 0.005,
+    "warmup": true,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 9.865749256951469,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l1_w_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l1_w_s1",
+    "setting": "gaussian",
+    "lr": 0.005,
+    "warmup": true,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 15.294145720345634,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l1_w_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l1_w_s2",
+    "setting": "gaussian",
+    "lr": 0.005,
+    "warmup": true,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 9.578025885990687,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l1_w_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l1_w_s3",
+    "setting": "gaussian",
+    "lr": 0.005,
+    "warmup": true,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 11.503479616982597,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l1_w_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l2_n_s2",
+    "setting": "gaussian",
+    "lr": 0.01,
+    "warmup": false,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.2647622312818254,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l2_n_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l1_w_s4",
+    "setting": "gaussian",
+    "lr": 0.005,
+    "warmup": true,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 11.003468104771205,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l1_w_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l2_n_s0",
+    "setting": "gaussian",
+    "lr": 0.01,
+    "warmup": false,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.3721641302108765,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l2_n_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l2_n_s1",
+    "setting": "gaussian",
+    "lr": 0.01,
+    "warmup": false,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.6515183448791504,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l2_n_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l2_n_s3",
+    "setting": "gaussian",
+    "lr": 0.01,
+    "warmup": false,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.5369269507271903,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l2_n_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l2_n_s4",
+    "setting": "gaussian",
+    "lr": 0.01,
+    "warmup": false,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.2799800293786185,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l2_n_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l2_w_s0",
+    "setting": "gaussian",
+    "lr": 0.01,
+    "warmup": true,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.4291684797831945,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l2_w_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l2_w_s2",
+    "setting": "gaussian",
+    "lr": 0.01,
+    "warmup": true,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.3163530017648424,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l2_w_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l2_w_s3",
+    "setting": "gaussian",
+    "lr": 0.01,
+    "warmup": true,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.8018018688474382,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l2_w_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l2_w_s4",
+    "setting": "gaussian",
+    "lr": 0.01,
+    "warmup": true,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.4060700280325753,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l2_w_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l2_w_s1",
+    "setting": "gaussian",
+    "lr": 0.01,
+    "warmup": true,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.9879492010389055,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l2_w_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l3_n_s0",
+    "setting": "gaussian",
+    "lr": 0.05,
+    "warmup": false,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.2466803193092346,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l3_n_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l3_n_s1",
+    "setting": "gaussian",
+    "lr": 0.05,
+    "warmup": false,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.0781455976622445,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l3_n_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l3_n_s2",
+    "setting": "gaussian",
+    "lr": 0.05,
+    "warmup": false,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.0586314243929726,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l3_n_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l3_n_s3",
+    "setting": "gaussian",
+    "lr": 0.05,
+    "warmup": false,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.1700291761330195,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l3_n_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l3_n_s4",
+    "setting": "gaussian",
+    "lr": 0.05,
+    "warmup": false,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.0908094729696,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l3_n_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l3_w_s1",
+    "setting": "gaussian",
+    "lr": 0.05,
+    "warmup": true,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.0477844221251351,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l3_w_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l3_w_s0",
+    "setting": "gaussian",
+    "lr": 0.05,
+    "warmup": true,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.251530681337629,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l3_w_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l3_w_s2",
+    "setting": "gaussian",
+    "lr": 0.05,
+    "warmup": true,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.0828954832894462,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l3_w_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l3_w_s3",
+    "setting": "gaussian",
+    "lr": 0.05,
+    "warmup": true,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.179847627878189,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l3_w_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l3_w_s4",
+    "setting": "gaussian",
+    "lr": 0.05,
+    "warmup": true,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.094094693660736,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l3_w_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l4_n_s0",
+    "setting": "gaussian",
+    "lr": 0.1,
+    "warmup": false,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.2904395120484489,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l4_n_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l4_n_s2",
+    "setting": "gaussian",
+    "lr": 0.1,
+    "warmup": false,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.0293486969811576,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l4_n_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l4_n_s3",
+    "setting": "gaussian",
+    "lr": 0.1,
+    "warmup": false,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.1573326204504286,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l4_n_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l4_n_s1",
+    "setting": "gaussian",
+    "lr": 0.1,
+    "warmup": false,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.0288284931864058,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l4_n_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l4_w_s0",
+    "setting": "gaussian",
+    "lr": 0.1,
+    "warmup": true,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.2814766253743852,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l4_w_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l4_n_s4",
+    "setting": "gaussian",
+    "lr": 0.1,
+    "warmup": false,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.122376331261226,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l4_n_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l4_w_s1",
+    "setting": "gaussian",
+    "lr": 0.1,
+    "warmup": true,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.0164584858076913,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l4_w_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l4_w_s2",
+    "setting": "gaussian",
+    "lr": 0.1,
+    "warmup": true,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.0219589386667525,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l4_w_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l5_n_s1",
+    "setting": "gaussian",
+    "lr": 0.5,
+    "warmup": false,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.2166726418903895,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l5_n_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l4_w_s3",
+    "setting": "gaussian",
+    "lr": 0.1,
+    "warmup": true,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.1776760901723589,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l4_w_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l5_n_s2",
+    "setting": "gaussian",
+    "lr": 0.5,
+    "warmup": false,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.1465433282511575,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l5_n_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l5_n_s0",
+    "setting": "gaussian",
+    "lr": 0.5,
+    "warmup": false,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.5329194920403617,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l5_n_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l4_w_s4",
+    "setting": "gaussian",
+    "lr": 0.1,
+    "warmup": true,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.096883509840284,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l4_w_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l5_n_s3",
+    "setting": "gaussian",
+    "lr": 0.5,
+    "warmup": false,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.3484970075743539,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l5_n_s3"
+  },
+  {
+    "run_name": "flat_gaussian_l5_n_s4",
+    "setting": "gaussian",
+    "lr": 0.5,
+    "warmup": false,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.3712180171694075,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l5_n_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l5_w_s0",
+    "setting": "gaussian",
+    "lr": 0.5,
+    "warmup": true,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.5390699761254447,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l5_w_s0"
+  },
+  {
+    "run_name": "flat_gaussian_l5_w_s2",
+    "setting": "gaussian",
+    "lr": 0.5,
+    "warmup": true,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.1911673418113164,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l5_w_s2"
+  },
+  {
+    "run_name": "flat_gaussian_l5_w_s4",
+    "setting": "gaussian",
+    "lr": 0.5,
+    "warmup": true,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.3769813946315221,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l5_w_s4"
+  },
+  {
+    "run_name": "flat_gaussian_l5_w_s1",
+    "setting": "gaussian",
+    "lr": 0.5,
+    "warmup": true,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.2074784551348006,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l5_w_s1"
+  },
+  {
+    "run_name": "flat_gaussian_l5_w_s3",
+    "setting": "gaussian",
+    "lr": 0.5,
+    "warmup": true,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 1.3702681916100639,
+    "log_dir": "outputs/warmup_flatness/gaussian/flat_gaussian_l5_w_s3"
+  }
+]

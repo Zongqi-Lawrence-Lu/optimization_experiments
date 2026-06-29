@@ -1,0 +1,102 @@
+[
+  {
+    "run_name": "flat_sst2_l4_n_s2",
+    "setting": "sst2",
+    "lr": 0.01,
+    "warmup": false,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 0.23836390408022062,
+    "log_dir": "outputs/warmup_flatness/sst2/flat_sst2_l4_n_s2"
+  },
+  {
+    "run_name": "flat_sst2_l4_n_s1",
+    "setting": "sst2",
+    "lr": 0.01,
+    "warmup": false,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 0.25641581043601036,
+    "log_dir": "outputs/warmup_flatness/sst2/flat_sst2_l4_n_s1"
+  },
+  {
+    "run_name": "flat_sst2_l4_n_s0",
+    "setting": "sst2",
+    "lr": 0.01,
+    "warmup": false,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 0.25952272170356344,
+    "log_dir": "outputs/warmup_flatness/sst2/flat_sst2_l4_n_s0"
+  },
+  {
+    "run_name": "flat_sst2_l4_n_s3",
+    "setting": "sst2",
+    "lr": 0.01,
+    "warmup": false,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 0.2505422330328396,
+    "log_dir": "outputs/warmup_flatness/sst2/flat_sst2_l4_n_s3"
+  },
+  {
+    "run_name": "flat_sst2_l4_w_s2",
+    "setting": "sst2",
+    "lr": 0.01,
+    "warmup": true,
+    "seed": 2002,
+    "clip_upper": 1.0,
+    "best_val_loss": 0.24319746185626304,
+    "log_dir": "outputs/warmup_flatness/sst2/flat_sst2_l4_w_s2"
+  },
+  {
+    "run_name": "flat_sst2_l4_w_s0",
+    "setting": "sst2",
+    "lr": 0.01,
+    "warmup": true,
+    "seed": 2000,
+    "clip_upper": 1.0,
+    "best_val_loss": 0.25912563662443844,
+    "log_dir": "outputs/warmup_flatness/sst2/flat_sst2_l4_w_s0"
+  },
+  {
+    "run_name": "flat_sst2_l4_n_s4",
+    "setting": "sst2",
+    "lr": 0.01,
+    "warmup": false,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 0.2596296061362539,
+    "log_dir": "outputs/warmup_flatness/sst2/flat_sst2_l4_n_s4"
+  },
+  {
+    "run_name": "flat_sst2_l4_w_s1",
+    "setting": "sst2",
+    "lr": 0.01,
+    "warmup": true,
+    "seed": 2001,
+    "clip_upper": 1.0,
+    "best_val_loss": 0.25695338871862206,
+    "log_dir": "outputs/warmup_flatness/sst2/flat_sst2_l4_w_s1"
+  },
+  {
+    "run_name": "flat_sst2_l4_w_s3",
+    "setting": "sst2",
+    "lr": 0.01,
+    "warmup": true,
+    "seed": 2003,
+    "clip_upper": 1.0,
+    "best_val_loss": 0.277427753167493,
+    "log_dir": "outputs/warmup_flatness/sst2/flat_sst2_l4_w_s3"
+  },
+  {
+    "run_name": "flat_sst2_l4_w_s4",
+    "setting": "sst2",
+    "lr": 0.01,
+    "warmup": true,
+    "seed": 2004,
+    "clip_upper": 1.0,
+    "best_val_loss": 0.2559406834521464,
+    "log_dir": "outputs/warmup_flatness/sst2/flat_sst2_l4_w_s4"
+  }
+]

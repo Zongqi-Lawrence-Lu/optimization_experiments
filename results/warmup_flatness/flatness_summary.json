@@ -1,0 +1,23 @@
+{
+  "gaussian": {
+    "warmup_final_sharpness_mean": -0.00014453972379366558,
+    "warmup_final_sharpness_std": 0.002061601848369223,
+    "no_warmup_final_sharpness_mean": -0.00011993341975741912,
+    "no_warmup_final_sharpness_std": 0.002093050785446899,
+    "warmup_sharper": false
+  },
+  "heavy_tail": {
+    "warmup_final_sharpness_mean": 0.0010114285349845887,
+    "warmup_final_sharpness_std": 0.0032520808269964983,
+    "no_warmup_final_sharpness_mean": 0.0010170971353848774,
+    "no_warmup_final_sharpness_std": 0.0031622657404470583,
+    "warmup_sharper": false
+  },
+  "sst2": {
+    "warmup_final_sharpness_mean": -2.3176719745000205e-06,
+    "warmup_final_sharpness_std": 7.652957199595164e-06,
+    "no_warmup_final_sharpness_mean": -3.572846452395121e-06,
+    "no_warmup_final_sharpness_std": 9.08284605094121e-06,
+    "warmup_sharper": true
+  }
+}
