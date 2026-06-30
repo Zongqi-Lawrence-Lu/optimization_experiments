@@ -8,11 +8,22 @@ checkpoint/
 *.pt
 *.log
 
-# Per-trial sweep outputs (heavy logs; best_config.yaml + results_summary.csv are kept)
-outputs/**/trial_*/
+# ── Streaming per-step run logs (eval, training, gradient) ───────────────────────────
+# These are always per-run noise and can be huge; never belong in git.
+*.jsonl
 
-# Per-trial result summaries (sweep noise; the final comparison JSON is the artifact)
-results/**/trial_*/
+# ── outputs/ – only sweep artifacts belong in git ────────────────────────────────────
+# Kept: best_config.yaml (winning sweep config) and results_summary.csv (sweep grid).
+# Everything else – per-run logs, per-run metrics, per-run copies of configs – is noise.
+outputs/**/final_metrics.json
+outputs/**/checkpoints.json
+outputs/**/config.yaml
 
-# Per-trial training-curve plots (only final comparison plots belong in git)
-plots/**/trial_*
+# ── results/ – only experiment-level aggregate files ─────────────────────────────────
+# results/experiment/*.json  →  tracked  (aggregated comparison / summary)
+# results/experiment/run_name/  →  ignored  (per-run subdirectory, any content)
+results/*/*/
+
+# ── plots/ – only final comparison / summary plots ───────────────────────────────────
+# Per-run training-curve subdirectories are noise; top-level comparison PNGs are kept.
+plots/**/training_curves/
