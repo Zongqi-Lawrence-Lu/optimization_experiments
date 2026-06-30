@@ -1,9 +1,0 @@
-{
-  "0": "outputs/lr_warmup_glue/final/warmup_glue_no_warmup_sst2_final/checkpoints/step_0.pt",
-  "500": "outputs/lr_warmup_glue/final/warmup_glue_no_warmup_sst2_final/checkpoints/step_500.pt",
-  "1000": "outputs/lr_warmup_glue/final/warmup_glue_no_warmup_sst2_final/checkpoints/step_1000.pt",
-  "1500": "outputs/lr_warmup_glue/final/warmup_glue_no_warmup_sst2_final/checkpoints/step_1500.pt",
-  "2000": "outputs/lr_warmup_glue/final/warmup_glue_no_warmup_sst2_final/checkpoints/step_2000.pt",
-  "2500": "outputs/lr_warmup_glue/final/warmup_glue_no_warmup_sst2_final/checkpoints/step_2500.pt",
-  "2999": "outputs/lr_warmup_glue/final/warmup_glue_no_warmup_sst2_final/checkpoints/step_2999.pt"
-}
