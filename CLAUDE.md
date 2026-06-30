@@ -5,7 +5,8 @@ results.
 2. The runs will be done remotely on a GPU cluster. For basic runs I will likely allocate a single
 A40 GPU, but we could upgrade to multiple GPU or A100 (80gb) if necessary. The maximum wall time allowed by
 the cluster policy is 12 hours. I included a sample_sbatch.sbatch for sample header file, and the slurm 
-standard out should go into the slurm/ folder.
+standard out should go into the slurm/ folder. It is advisable to ask for two times the time you anticipate
+the job would need, provided it is not over 12 hours. 
 
 3. There are four main settings of the experiments I would like to run on. Make sure the modes are available
 and the pipeline is ready for any of these.
@@ -50,10 +51,17 @@ be configurable, so is the duration of the warmup period. By default, the warmup
 organized than output, such as json), and for plots. Write a README.md to document the file structure. There should
 also be strong plotting infrastructure available. For instance, I would like the heatmap for the hyperparmeter sweep
 and also for the model run, which should both record (in results/ folder) and plot (in plots/ folder) the trend for
-loss, train/val/test accuracy. You are free to create additional folder structures.
+loss, train/val/test accuracy. You are free to create additional folder structures. Every experiemnt shall have its
+own place in the experiment, output, results, and plots folder. You should also include brief documentation in each
+experiment folder so that this information is not loss between sessions.
 
 6. As a general guideline, write clean and modular code. There should be strong logging and restart mechanism if the 
 duration of the run is expected over an hour. As general rule, a checkpoint should be about every 10 minutes. When I
 asked you to run an experiment, always checkin with me about the intended design before you submit the actual jobs. 
 Each experiment should have its own separate folder in experiments/ folder. When naming, do not use non-discriptive
 numbers such as experiment 1 or exp_3. Use discriptive names such as lr_warmup_comparison_heavt_tail.
+
+7. I use git to manage the system and for syncing work. You should not commit directly unless I give explicit
+permission. You should make the pipeline and file name such that only the most important things will get picked
+up by git (i.e., not in .gitignore). For instamce, I do not want the detailed output or graphs for the sweep
+to be picked up by git, but I want the final heatmap or the best outcome to be in it.
