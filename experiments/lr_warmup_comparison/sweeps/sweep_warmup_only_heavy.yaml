@@ -1,0 +1,26 @@
+# Sweep for warmup-only condition (no clipping), heavy-tail noise.
+# Independently finds the best lr and warmup duration; clipping.clip_type is
+# fixed to "none" in the base config, so there is no clip axis here (cheaper
+# grid than sweep_warmup_heavy.yaml).
+base_config: experiments/lr_warmup_comparison/configs/warmup_only_heavy_tail.yaml
+parallel_jobs: 8
+primary_metric: best_val_loss
+lower_is_better: true
+
+stage1:
+  search: grid
+  axes:
+    - field: inner_optimizer.lr
+      values: [0.005, 0.01, 0.05, 0.1, 0.5]
+      log_scale: true
+    - field: inner_optimizer.warmup_steps
+      values: [20, 50, 100, 200, 500]
+
+stage2:
+  search: grid
+  n_values: 4
+  zoom_factor: 0.4
+  axes:
+    - field: inner_optimizer.lr
+      log_scale: true
+    - field: inner_optimizer.warmup_steps

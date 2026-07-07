@@ -167,8 +167,8 @@ def _write_csv(results: List[dict], path: str) -> None:
 # Main two-stage runner
 # ---------------------------------------------------------------------------
 
-def run_two_stage_sweep(sweep_config_path: str, sweep_dir: str) -> None:
-    """Execute a two-stage coarse-then-fine hyperparameter sweep.
+def run_two_stage_sweep(sweep_config_path: str, sweep_dir: str) -> Optional[dict]:
+    """Execute a two-stage coarse-then-fine hyperparameter sweep from a YAML file.
 
     Writes results to:
         <sweep_dir>/stage1/results_summary.csv
@@ -180,6 +180,22 @@ def run_two_stage_sweep(sweep_config_path: str, sweep_dir: str) -> None:
         cfg = yaml.safe_load(f)
 
     base_config = load_config(cfg["base_config"])
+    return run_two_stage_sweep_for_config(base_config, cfg, sweep_dir)
+
+
+def run_two_stage_sweep_for_config(
+    base_config: TrainingConfig,
+    cfg: dict,
+    sweep_dir: str,
+) -> Optional[dict]:
+    """Execute a two-stage sweep given an already-constructed base config and
+    sweep spec dict (same shape as the YAML, minus the ``base_config`` key).
+
+    Lets callers generate ``base_config`` programmatically (e.g. sweeping a
+    data-level field across many values) without writing one YAML file per
+    variant. Returns a summary dict with the overall best metric/config path,
+    or None if stage 1 produced no valid trials.
+    """
     parallel_jobs = cfg.get("parallel_jobs", 1)
     primary_metric = cfg.get("primary_metric", "best_val_loss")
     lower_is_better = cfg.get("lower_is_better", True)
@@ -208,7 +224,7 @@ def run_two_stage_sweep(sweep_config_path: str, sweep_dir: str) -> None:
     s1_valid = [r for r in s1_results if r.get(primary_metric) is not None]
     if not s1_valid:
         print(f"Stage 1 produced no valid results for '{primary_metric}'; aborting stage 2.")
-        return
+        return None
 
     # Best stage-1 config
     if lower_is_better:
@@ -252,24 +268,35 @@ def run_two_stage_sweep(sweep_config_path: str, sweep_dir: str) -> None:
     print(f"Stage 2 complete. Results → {s2_csv}")
 
     s2_valid = [r for r in s2_results if r.get(primary_metric) is not None]
-    if s2_valid:
-        if lower_is_better:
-            best_s2 = min(s2_valid, key=lambda r: r[primary_metric])
-        else:
-            best_s2 = max(s2_valid, key=lambda r: r[primary_metric])
-        best_s2_src = os.path.join(stage2_dir, best_s2["trial_id"], "config.yaml")
-        best_s2_dst = os.path.join(stage2_dir, "best_config.yaml")
-        if os.path.exists(best_s2_src):
-            shutil.copy(best_s2_src, best_s2_dst)
-        best_s2_val = best_s2.get(primary_metric)
-        print(f"Stage 2 best: {primary_metric}={best_s2_val:.4f if best_s2_val is not None else 'N/A'}")
-        print(f"Best config written to {best_s2_dst}")
+    if not s2_valid:
+        return None
 
-        # Write an overall best to sweep_dir root
-        overall_best_dst = os.path.join(sweep_dir, "best_config.yaml")
-        if os.path.exists(best_s2_dst):
-            shutil.copy(best_s2_dst, overall_best_dst)
-            print(f"Overall best config → {overall_best_dst}")
+    if lower_is_better:
+        best_s2 = min(s2_valid, key=lambda r: r[primary_metric])
+    else:
+        best_s2 = max(s2_valid, key=lambda r: r[primary_metric])
+    best_s2_src = os.path.join(stage2_dir, best_s2["trial_id"], "config.yaml")
+    best_s2_dst = os.path.join(stage2_dir, "best_config.yaml")
+    if os.path.exists(best_s2_src):
+        shutil.copy(best_s2_src, best_s2_dst)
+    best_s2_val = best_s2.get(primary_metric)
+    metric_str = f"{best_s2_val:.4f}" if best_s2_val is not None else "N/A"
+    print(f"Stage 2 best: {primary_metric}={metric_str}")
+    print(f"Best config written to {best_s2_dst}")
+
+    # Write an overall best to sweep_dir root
+    overall_best_dst = os.path.join(sweep_dir, "best_config.yaml")
+    if os.path.exists(best_s2_dst):
+        shutil.copy(best_s2_dst, overall_best_dst)
+        print(f"Overall best config → {overall_best_dst}")
+
+    return {
+        "primary_metric": primary_metric,
+        "best_value": best_s2_val,
+        "best_config_path": overall_best_dst if os.path.exists(overall_best_dst) else best_s2_dst,
+        "best_hp": {k: v for k, v in best_s2.items()
+                    if k not in {"trial_id"} and not any(m in k for m in ["loss", "step", "best", "final"])},
+    }
 
 
 def main() -> None:

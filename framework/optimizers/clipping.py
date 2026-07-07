@@ -413,7 +413,15 @@ def compute_gradient_stats(
     clipped_flat = clipped_grad.detach().flatten()
     abs_raw = raw_flat.abs()
 
-    hist_counts, hist_edges = torch.histogram(raw_flat.float().cpu(), bins=num_bins)
+    # torch.histogram requires a finite range; a diverged run (NaN/Inf loss)
+    # produces all-non-finite gradients, which would otherwise crash here.
+    finite_raw = raw_flat.float().cpu()
+    finite_raw = finite_raw[torch.isfinite(finite_raw)]
+    if finite_raw.numel() > 0:
+        hist_counts, hist_edges = torch.histogram(finite_raw, bins=num_bins)
+        hist_counts, hist_edges = hist_counts.tolist(), hist_edges.tolist()
+    else:
+        hist_counts, hist_edges = [], []
 
     return {
         "layer_name": param_name,
@@ -422,6 +430,6 @@ def compute_gradient_stats(
         "grad_min_abs": abs_raw.min().item() if abs_raw.numel() > 0 else 0.0,
         "fraction_above_upper_clip": (abs_raw > upper).float().mean().item() if upper > 0 else 0.0,
         "fraction_below_lower_clip": (abs_raw < lower).float().mean().item() if lower > 0 else 0.0,
-        "histogram_edges": hist_edges.tolist(),
-        "histogram_counts": hist_counts.tolist(),
+        "histogram_edges": hist_edges,
+        "histogram_counts": hist_counts,
     }
