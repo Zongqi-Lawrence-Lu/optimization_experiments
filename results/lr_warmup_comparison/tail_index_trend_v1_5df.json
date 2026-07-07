@@ -1,0 +1,67 @@
+[
+  {
+    "noise_df": 2.0,
+    "no_warmup_best_val_loss": 5.895904353686741,
+    "no_warmup_final_val_loss": 6.723801101957049,
+    "no_warmup_test_loss": 7.911274194717407,
+    "no_warmup_log_dir": "outputs/lr_warmup_comparison/tail_index/final/tail_df2p00_no_warmup_final",
+    "warmup_best_val_loss": 5.720792208399091,
+    "warmup_final_val_loss": 5.720792208399091,
+    "warmup_test_loss": 7.984289850507464,
+    "warmup_log_dir": "outputs/lr_warmup_comparison/tail_index/final/tail_df2p00_warmup_final",
+    "val_loss_benefit": 0.17511214528764985,
+    "test_loss_benefit": -0.07301565579005675
+  },
+  {
+    "noise_df": 1.75,
+    "no_warmup_best_val_loss": 3.7283614703587125,
+    "no_warmup_final_val_loss": 4.493344102587018,
+    "no_warmup_test_loss": 8.655293456145696,
+    "no_warmup_log_dir": "outputs/lr_warmup_comparison/tail_index/final/tail_df1p75_no_warmup_final",
+    "warmup_best_val_loss": 3.684267384665353,
+    "warmup_final_val_loss": 4.091908931732178,
+    "warmup_test_loss": 8.111768420253481,
+    "warmup_log_dir": "outputs/lr_warmup_comparison/tail_index/final/tail_df1p75_warmup_final",
+    "val_loss_benefit": 0.044094085693359375,
+    "test_loss_benefit": 0.5435250358922143
+  },
+  {
+    "noise_df": 1.5,
+    "no_warmup_best_val_loss": 5.945970118045807,
+    "no_warmup_final_val_loss": 6.941721132823399,
+    "no_warmup_test_loss": 8.773752723421369,
+    "no_warmup_log_dir": "outputs/lr_warmup_comparison/tail_index/final/tail_df1p50_no_warmup_final",
+    "warmup_best_val_loss": 5.874102047511509,
+    "warmup_final_val_loss": 7.01455899647304,
+    "warmup_test_loss": 8.51223509652274,
+    "warmup_log_dir": "outputs/lr_warmup_comparison/tail_index/final/tail_df1p50_warmup_final",
+    "val_loss_benefit": 0.07186807053429778,
+    "test_loss_benefit": 0.26151762689862856
+  },
+  {
+    "noise_df": 1.25,
+    "no_warmup_best_val_loss": 453.5015730176653,
+    "no_warmup_final_val_loss": 471.3848948478699,
+    "no_warmup_test_loss": 173.99663359778268,
+    "no_warmup_log_dir": "outputs/lr_warmup_comparison/tail_index/final/tail_df1p25_no_warmup_final",
+    "warmup_best_val_loss": 460.75902666364397,
+    "warmup_final_val_loss": 474.3244004930769,
+    "warmup_test_loss": 204.4535530635289,
+    "warmup_log_dir": "outputs/lr_warmup_comparison/tail_index/final/tail_df1p25_warmup_final",
+    "val_loss_benefit": -7.257453645978671,
+    "test_loss_benefit": -30.45691946574621
+  },
+  {
+    "noise_df": 1.1,
+    "no_warmup_best_val_loss": 118.64910875047956,
+    "no_warmup_final_val_loss": 122.354706627982,
+    "no_warmup_test_loss": 54.51820537022182,
+    "no_warmup_log_dir": "outputs/lr_warmup_comparison/tail_index/final/tail_df1p10_no_warmup_final",
+    "warmup_best_val_loss": 133.74989809308732,
+    "warmup_final_val_loss": 147.04253932407923,
+    "warmup_test_loss": 61.014233997889924,
+    "warmup_log_dir": "outputs/lr_warmup_comparison/tail_index/final/tail_df1p10_warmup_final",
+    "val_loss_benefit": -15.100789342607769,
+    "test_loss_benefit": -6.496028627668103
+  }
+]

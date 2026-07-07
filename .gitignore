@@ -15,6 +15,7 @@ checkpoint/
 # ── outputs/ – only sweep artifacts belong in git ────────────────────────────────────
 # Kept: best_config.yaml (winning sweep config) and results_summary.csv (sweep grid).
 # Everything else – per-run logs, per-run metrics, per-run copies of configs – is noise.
+outputs/
 outputs/**/final_metrics.json
 outputs/**/checkpoints.json
 outputs/**/config.yaml
